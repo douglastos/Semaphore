@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  semaphore:
+    image: semaphoreui/semaphore:latest
+    container_name: semaphore
+    ports:
+      - "3000:3000"
+    environment:
+      SEMAPHORE_DB_DIALECT: bolt
+      SEMAPHORE_DB_PATH: /data/semaphore.db
+      SEMAPHORE_PLAYBOOK_PATH: /data/playbooks
+      SEMAPHORE_ADMIN: admin
+      SEMAPHORE_ADMIN_NAME: "Admin"
+      SEMAPHORE_ADMIN_EMAIL: "admin@example.com"
+      SEMAPHORE_ADMIN_PASSWORD: admin
+    volumes:
+      - ./semaphore_data:/data

@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Echo hora atual
+      command: echo "Job rodando em {{ ansible_date_time.iso8601 }}"
