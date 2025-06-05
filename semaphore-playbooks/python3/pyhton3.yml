@@ -1,11 +1,39 @@
-version: v1.0
-name: Instalar Python 3.13 no CentOS 7
+---
+- name: Instala Python 3.13
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure required build dependencies are installed
+      yum:
+        name:
+          - gcc
+          - make
+          - zlib-devel
+          - bzip2-devel
+          - openssl-devel
+          - ncurses-devel
+          - sqlite-devel
+          - readline-devel
+          - tk-devel
+          - libffi-devel
+          - wget
+        state: present
 
-blocks:
-  - name: Rodar bootstrap remoto
-    task:
-      jobs:
-        - name: SSH direto sem secrets
-          commands:
-            - checkout
-            - ssh deploy@10.110.4.31 'bash -s' < semaphore-playbooks/python3/bootstrap_python3.sh
+    - name: Download Python 3.13 source
+      get_url:
+        url: https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
+        dest: /usr/src/Python-3.13.0.tgz
+
+    - name: Extract archive
+      unarchive:
+        src: /usr/src/Python-3.13.0.tgz
+        dest: /usr/src/
+        remote_src: yes
+
+    - name: Compile and install Python
+      shell: |
+        cd /usr/src/Python-3.13.0
+        ./configure --enable-optimizations
+        make altinstall
+      args:
+        creates: /usr/local/bin/python3.13
