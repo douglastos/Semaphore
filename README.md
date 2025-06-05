@@ -2,10 +2,10 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD045 -->
 <!-- markdownlint-disable MD041 -->
-<!-- 
+
 <p align="center">
-  <img src="https://sysblob.com/images/semaphore.png" width="800" />
-</p> -->
+  <img src="https://raw.githubusercontent.com/douglastos/Semaphore/refs/heads/main/.img/capa.png" width="800" />
+</p>
 
 
 # Simple Proof of Concept Using Semaphore and Ansible
