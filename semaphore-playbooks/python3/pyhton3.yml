@@ -1,0 +1,11 @@
+version: v1.0
+name: Instalar Python 3.13 no CentOS 7
+
+blocks:
+  - name: Rodar bootstrap remoto
+    task:
+      jobs:
+        - name: SSH direto sem secrets
+          commands:
+            - checkout
+            - ssh deploy@10.110.4.31 'bash -s' < semaphore-playbooks/python3/bootstrap_python3.sh
