@@ -1,0 +1,34 @@
+version: v1.0
+
+name: Instalar Python e Rodar Ansible
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2204
+
+env_vars:
+  - name: HOST
+    value: 10.110.4.32  # <- altere para seu IP/host real
+  - name: SSH_USER
+    value: deploy
+
+blocks:
+  - name: 1️⃣ Instala Python com script remoto
+    task:
+      jobs:
+        - name: SSH bootstrap
+          commands:
+            - checkout
+            - echo "Instalando Python via SSH em $SSH_USER@$HOST"
+            - ssh -o StrictHostKeyChecking=no $SSH_USER@$HOST 'bash -s' < semaphore-playbooks/python3/bootstrap_python3.sh
+
+  - name: 2️⃣ Roda Ansible com Python já instalado
+    task:
+      jobs:
+        - name: Playbook Ansible
+          commands:
+            - checkout
+            - echo "[vm]" > inventory
+            - echo "$HOST ansible_user=$SSH_USER ansible_python_interpreter=/usr/local/bin/python3.8" >> inventory
+            - ansible-playbook -i inventory semaphore-playbooks/python3/install_python_3_13.yml

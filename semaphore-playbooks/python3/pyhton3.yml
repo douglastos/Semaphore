@@ -1,39 +1,6 @@
----
-- name: Instala Python 3.13
+- name: Instala Python 3.13 via Ansible
   hosts: all
   become: true
   tasks:
-    - name: Ensure required build dependencies are installed
-      yum:
-        name:
-          - gcc
-          - make
-          - zlib-devel
-          - bzip2-devel
-          - openssl-devel
-          - ncurses-devel
-          - sqlite-devel
-          - readline-devel
-          - tk-devel
-          - libffi-devel
-          - wget
-        state: present
-
-    - name: Download Python 3.13 source
-      get_url:
-        url: https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
-        dest: /usr/src/Python-3.13.0.tgz
-
-    - name: Extract archive
-      unarchive:
-        src: /usr/src/Python-3.13.0.tgz
-        dest: /usr/src/
-        remote_src: yes
-
-    - name: Compile and install Python
-      shell: |
-        cd /usr/src/Python-3.13.0
-        ./configure --enable-optimizations
-        make altinstall
-      args:
-        creates: /usr/local/bin/python3.13
+    - name: Exemplo de teste
+      command: python3.13 --version
