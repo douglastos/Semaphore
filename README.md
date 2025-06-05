@@ -168,7 +168,7 @@ Then, run it:
 
 ---
 
-## ✅ Done!
+## ✅ Done
 
 You now have a running Semaphore + Ansible environment ready for automation and testing.
 
